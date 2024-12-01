@@ -8,12 +8,14 @@ class CustomPasswordTextField extends StatefulWidget {
   final String label;
   final String hint;
   final IconData preIcon;
+  final TextEditingController? controller ;
 
   CustomPasswordTextField({
     super.key,
     required this.label,
     required this.hint,
     required this.preIcon,
+    this.controller,
   });
 
   @override
@@ -31,6 +33,7 @@ class _CustomPasswordTextFieldState extends State<CustomPasswordTextField> {
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
       child: TextFormField(
+        controller: widget.controller ,
         style: TextStyle(
             color: Mycolors.mainColor,
             fontFamily: 'Inter',

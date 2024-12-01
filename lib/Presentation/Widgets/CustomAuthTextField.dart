@@ -2,16 +2,17 @@ import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:furnizone/Constant/MyColors.dart';
 
-
 class CustomAuthTextField extends StatelessWidget {
   final String label;
   final String hint;
   final IconData preIcon;
+  final TextEditingController? controller;
   const CustomAuthTextField({
     super.key,
     required this.label,
     required this.hint,
     required this.preIcon,
+    this.controller
   });
 
   @override
@@ -19,6 +20,7 @@ class CustomAuthTextField extends StatelessWidget {
     return Padding(
       padding: const EdgeInsets.only(bottom: 24),
       child: TextFormField(
+        controller: controller,
         style: TextStyle(
             color: Mycolors.mainColor,
             fontFamily: 'Inter',
