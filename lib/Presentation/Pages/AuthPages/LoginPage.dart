@@ -4,9 +4,10 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:furnizone/Constant/MyColors.dart';
 import 'package:furnizone/Constant/SizeConfg.dart';
 import 'package:furnizone/Logic/AuthCubit/auth_cubit.dart';
-import 'package:furnizone/Presentation/Pages/ForgotPasswordPage.dart';
-import 'package:furnizone/Presentation/Pages/HomePage.dart';
-import 'package:furnizone/Presentation/Pages/RegisterPage.dart';
+import 'package:furnizone/Presentation/Pages/AuthPages/ForgotPasswordPage.dart';
+
+import 'package:furnizone/Presentation/Pages/AuthPages/RegisterPage.dart';
+import 'package:furnizone/Presentation/Pages/HomePages/main_screen.dart';
 import 'package:furnizone/Presentation/Widgets/CustomBottomTextRow.dart';
 import 'package:furnizone/Presentation/Widgets/CustomLabelColumn.dart';
 import 'package:furnizone/Presentation/Widgets/CustomTopImage.dart';
@@ -17,13 +18,14 @@ class LoginPage extends StatelessWidget {
   const LoginPage({super.key});
   static const Id = '/Login';
 
-//GlobalKey<FormState> loginForm = GlobalKey();
+
   @override
   Widget build(BuildContext context) {
     return BlocConsumer<AuthCubit, AuthState>(
       listener: (context, state) {
         if (state is LogInSuccess) {
-          Navigator.pushNamed(context, Home.Id);
+          Navigator.popAndPushNamed(context, MainScreen.id);
+          BlocProvider.of<AuthCubit>(context).clearLoginForm();
         } else if (state is LogInFailure) {
           ScaffoldMessenger.of(context).showSnackBar(
             SnackBar(
@@ -59,8 +61,9 @@ class LoginPage extends StatelessWidget {
                         height: 56,
                       ),
                       LoginForm(
-                          loginForm:
-                              BlocProvider.of<AuthCubit>(context).loginForm),
+                        loginForm:
+                            BlocProvider.of<AuthCubit>(context).loginForm,
+                      ),
                       Align(
                         alignment: Alignment.centerRight,
                         child: InkWell(

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnizone/Constant/MyColors.dart';
-import 'package:furnizone/Presentation/Pages/LoginPage.dart';
+import 'package:furnizone/Presentation/Pages/AuthPages/LoginPage.dart';
 
 class GetStartedNextButton extends StatelessWidget {
   const GetStartedNextButton({

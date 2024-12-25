@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:furnizone/Constant/MyColors.dart';
-import 'package:furnizone/Presentation/Pages/LoginPage.dart';
+import 'package:furnizone/Presentation/Pages/AuthPages/LoginPage.dart';
 import 'package:furnizone/Presentation/Widgets/CustomTopImage.dart';
 import 'package:furnizone/Presentation/Widgets/ElevatedButtonStyle.dart';
 
@@ -45,7 +45,7 @@ class SuccessRegisterPage extends StatelessWidget {
           Spacer(flex: 2),
           ElevatedButtonStyle(
               onPressed: () {
-                Navigator.pushNamed(context, LoginPage.Id);
+                Navigator.popAndPushNamed(context, LoginPage.Id);
               },
               title: 'Continue',
               fontSize: 24,

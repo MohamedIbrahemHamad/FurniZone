@@ -1,23 +1,25 @@
 import 'package:flutter/material.dart';
-import 'package:furnizone/Presentation/Pages/OTPVerificationPage.dart';
-import 'package:furnizone/Presentation/Pages/ResetPassword.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
+import 'package:furnizone/Logic/AuthCubit/auth_cubit.dart';
+import 'package:furnizone/Presentation/Pages/AuthPages/OTPVerificationPage.dart';
 import 'package:pinput/pinput.dart';
-
 
 class Otpform extends StatelessWidget {
   const Otpform({
     super.key,
-    required this.VerificationForm,
+    required this.verificationForm,
     required this.widget,
+    required this.onComplete,
   });
 
-  final GlobalKey<FormState> VerificationForm;
+  final GlobalKey<FormState> verificationForm;
   final OTPVerification widget;
+  final void Function(String pin) onComplete;
 
   @override
   Widget build(BuildContext context) {
     return Form(
-      key: VerificationForm,
+      key: verificationForm,
       child: Padding(
         padding: const EdgeInsets.only(bottom: 12.0),
         child: Pinput(
@@ -26,9 +28,7 @@ class Otpform extends StatelessWidget {
           focusedPinTheme: widget.focusedPinTheme,
           submittedPinTheme: widget.submittedPinTheme,
           validator: (pin) {
-            return pin == '777777'
-                ? null
-                : 'code is incorrect or expired';
+            return pin!.isNotEmpty ? null : 'OTP code is required';
           },
           pinputAutovalidateMode: PinputAutovalidateMode.onSubmit,
           showCursor: true,
@@ -36,15 +36,8 @@ class Otpform extends StatelessWidget {
           animationCurve: Curves.bounceInOut,
           pinAnimationType: PinAnimationType.rotation,
           //  autofocus: true,
-          onCompleted: (pin) {
-            if (VerificationForm.currentState!.validate()) {
-              print(pin);
-              Navigator.popAndPushNamed(
-                context,
-                ResetPasswordPage.Id,
-              );
-            }
-          },
+          onCompleted: onComplete,
+          controller: BlocProvider.of<AuthCubit>(context).verificationPin,
         ),
       ),
     );

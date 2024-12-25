@@ -1,15 +1,15 @@
 import 'package:dio/dio.dart';
-//import 'package:furnizone/Data/APIs/end_ponits.dart';
-// import 'package:happy_tech_mastering_api_with_flutter/cache/cache_helper.dart';
-// import 'package:happy_tech_mastering_api_with_flutter/core/api/end_ponits.dart';
+import 'package:furnizone/Data/APIs/End_Ponits.dart';
+import 'package:furnizone/Data/cache/cache_helper.dart';
+
 
 class ApiInterceptor extends Interceptor {
   @override
   void onRequest(RequestOptions options, RequestInterceptorHandler handler) {
-    // options.headers[ApiKey.token] =
-    //     CacheHelper().getData(key: ApiKey.token) != null
-    //         ? 'FOODAPI ${CacheHelper().getData(key: ApiKey.token)}'
-    //         : null;
-    // super.onRequest(options, handler);
+    options.headers[ApiKey.Authorization] = 
+     CacheHelper().getData(key: ApiKey.token) != null
+            ? 'Bearer ${CacheHelper().getData(key: ApiKey.token)}'
+            : null;
+    super.onRequest(options, handler);
   }
 }
